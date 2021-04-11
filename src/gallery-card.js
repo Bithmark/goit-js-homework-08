@@ -1,8 +1,8 @@
 // ***1. Создание и рендер разметки по массиву данных и предоставленному шаблону.
 
-import galleryitemsHistory from "/src/gallery-items.js";
+import galleryitemsHistory from "./gallery-items.js";
 
-// console.log(galleryitemsHistory)
+
 
 const galleryCard = document.querySelector(".js-gallery");
 const openModal = document.querySelector(".js-lightbox");
@@ -33,7 +33,6 @@ const transactionGalleryItems = galleryitemsHistory.map(createGalleryCard);
 
 galleryCard.insertAdjacentHTML("afterbegin", transactionGalleryItems.join(""));
 
-// console.log(transactionGalleryItems);
 
 // *** Реализация делегирования на галерее ul.js-gallery и получение url большого изображения.
 
@@ -53,10 +52,9 @@ function onOpenModal(event) {
   );
   changeImgEl.setAttribute("alt", `${event.target.getAttribute("alt")}`);
 
+  window.document.addEventListener("keydown", onEscKeyPress);
   transactionGalleryItems.forEach((element, index) => {
     if (element.includes(event.target.src)) {
-      // console.log(element);
-      // console.log(event.target.src);
       activeIndex = index;
     }
   });
@@ -69,6 +67,7 @@ function onCloseModalBtn(event) {
   openModal.classList.remove("is-open");
   changeImgEl.setAttribute("src", "");
   changeImgEl.setAttribute("alt", "");
+  window.document.removeEventListener("keydown", onEscKeyPress);
 }
 
 closeOverlayModal.addEventListener("click", onCloseOverlayModal);
